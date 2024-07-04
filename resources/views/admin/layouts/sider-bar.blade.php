@@ -38,7 +38,7 @@
                 <li>
                     <a href="{{route('admin-dashboard')}}" class="dropdown-toggle no-arrow">
                         <span class="micon bi bi-gear"></span></span><span
-                            class="mtext">Thống Kê</span>
+                            class="mtext">Cấu Hình Web</span>
                     </a>
                 </li>
                 <li class="dropdown">
