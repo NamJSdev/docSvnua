@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Untree.co">
+	<link rel="shortcut icon" href="favicon.png">
+
+	<meta name="description" content="" />
+	<meta name="keywords" content="bootstrap, bootstrap5" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+	
+
+	<link rel="stylesheet" href="fonts/icomoon/style.css">
+	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+	<link rel="stylesheet" href="css/tiny-slider.css">
+	<link rel="stylesheet" href="css/aos.css">
+	<link rel="stylesheet" href="css/glightbox.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/upload.css">
+	<link rel="stylesheet" href="css/flatpickr.min.css">
+
+
+	<title>Blogy &mdash; Free Bootstrap 5 Website Template by Untree.co</title>
+</head>
+<body>
+
+	<div class="site-mobile-menu site-navbar-target">
+		<div class="site-mobile-menu-header">
+			<div class="site-mobile-menu-close">
+				<span class="icofont-close js-menu-toggle"></span>
+			</div>
+		</div>
+		<div class="site-mobile-menu-body">
+            
+        </div>
+	</div>
+
+	<nav class="site-nav">
+		<div class="container">
+			<div class="menu-bg-wrap">
+				<div class="site-navigation">
+					<div class="row g-0 align-items-center">
+						<div class="col-2">
+							<a href="index.html" class="logo m-0 float-start"><img src="images/logo_vnua_02.png" alt="">&nbsp;DocVNUA<span class="text-primary"></span></a>
+						</div>
+						<div class="col-lg-6 text-center">
+							<a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light">
+								<span></span>
+							</a>
+							<form action="#" class="search-form d-none d-lg-inline-block">
+								<input type="text" class="form-control" placeholder="Search...">
+								<span class="bi-search"></span>
+							</form>
+						</div>
+						<div class="col-4 text-end">
+							<button class="button-17" role="button"><span><a href="upload.html">TẢI LÊN</a></span></button>
+							<button class="button-17" role="button"><span>DÙNG THỬ</span></button>
+							<button class="button-17" role="button" onclick="toggle()" class="profile-dropdown-btn"><i class="fa-regular fa-user"></i></button>
+							<div class="profile-dropdown">
+								<ul class="profile-dropdown-list">
+									<li class="profile-dropdown-list-item">
+									  <a href="Edit Profile.html">
+										<i class="fa-regular fa-user"></i>
+										Tài khoản
+									  </a>
+									</li>
+						  
+									<li class="profile-dropdown-list-item">
+									  <a href="my-upload.html">
+										<i class="fa-regular fa-envelope"></i>
+										Tài Liệu
+									  </a>
+									</li>
+						  
+									<li class="profile-dropdown-list-item">
+									  <a href="#">
+										<i class="fa-solid fa-chart-line"></i>
+										Thông kê 
+									  </a>
+									</li>
+						  
+									<li class="profile-dropdown-list-item">
+									  <a href="Account Settings.html">
+										<i class="fa-solid fa-sliders"></i>
+										Thiết lập
+									  </a>
+									</li>
+									<li class="profile-dropdown-list-item">
+									  <a href="#">
+										<i class="fa-regular fa-circle-question"></i>
+										Hỗ trợ
+									  </a>
+									</li>
+									<hr />
+						  
+									<li class="profile-dropdown-list-item">
+									  <a href="login.html">
+										<i class="fa-solid fa-arrow-right-from-bracket"></i>
+										Đăng xuất
+									  </a>
+									</li>
+								  </ul>					
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+    <div class="text-setting-account">
+        <span>Account Settings</span>
+    </div>
+	<!-- Start posts-entry -->
+	<nav class="center-settings-menu">
+        <ul>
+            <li class="tab-link" data-tab="email-notifications">Thông Báo</li>
+            <li class="tab-link" data-tab="scribd-membership">Thành Viên </li>
+            <li class="tab-link" data-tab="social">Xã Hội</li>
+            <li class="tab-link" data-tab="connect">Kết Nối</li>
+            <li class="tab-link" data-tab="account">Tài Khoản</li>
+            <li class="tab-link" data-tab="email-address">Địa Chỉ Email</li>
+            <li class="tab-link active" data-tab="personal-details">Thông Tin Cá Nhân</li>
+            <li class="tab-link" data-tab="contact-details">Chi Tiết Liên Hệ</li>
+        </ul>
+    </nav>
+        <div class="settings-container">
+            <section id="email-notifications" class="tab-content">
+                <h2>Thông Báo Email</h2>
+                <p>Quản lý thông báo email của bạn tại đây.</p>
+            </section>
+            <section id="scribd-membership" class="tab-content">
+                <h2>Thành Viên Scribd</h2>
+                <p>Quản lý thành viên Scribd của bạn tại đây.</p>
+            </section>
+            <section id="social" class="tab-content">
+                <h2>Xã Hội</h2>
+                <p>Quản lý kết nối xã hội của bạn tại đây.</p>
+            </section>
+            <section id="blocked-users" class="tab-content">
+                <h2>Người Dùng Bị Chặn</h2>
+                <p>Quản lý người dùng bị chặn của bạn tại đây.</p>
+            </section>
+            <section id="connect" class="tab-content">
+                <h2>Kết Nối</h2>
+                <p>Quản lý kết nối của bạn tại đây.</p>
+            </section>
+            <section id="account" class="tab-content">
+                <h2>Tài Khoản</h2>
+                <p>Quản lý tài khoản của bạn tại đây.</p>
+            </section>
+            <section id="email-address" class="tab-content">
+                <h2>Địa Chỉ Email</h2>
+                <p>Quản lý địa chỉ email của bạn tại đây.</p>
+            </section>
+            <section id="personal-details" class="tab-content active">
+                <span>Thông Tin Cá Nhân</span>
+                <section class="profile-picture">
+                    <div class="profile-pic-container">
+                        <img id="profile-pic" src="https://via.placeholder.com/96" alt="Ảnh Đại Diện">
+                        <input type="file" id="upload-image" accept="image/jpeg, image/png, image/gif">
+						<div class="text-profile-setting">
+						<p>Định dạng hỗ trợ: jpg, png, gif.<br>Kích thước tối đa: 500KB<br></p>
+                        <label for="upload-image" class="upload-btn">Tải Ảnh Mới</label>
+                    </div>
+					</div>
+                </section>
+				<hr>
+                <section class="personal-info">
+                    <h3>Cập Nhật Thông Tin Cá Nhân</h3>
+                    <form id="personal-info-form">
+                        <label for="accounttype">Loại Tài Khoản: </label>
+
+                        <select id="accounttype">
+                            <option value="giangvien">Giảng viên</option>
+                            <option value="sinhvien">Sinh Viên</option>
+                        </select>
+                        <label for="name">Tên</label>
+                        <input type="text" id="name" placeholder="Tên" required>
+
+                        <label for="occupation">Giảng viên/sinh viên khoa: </label>
+                        <input type="text" id="occupation" placeholder="VD: Khoa Công Nghệ Thông Tin">
+
+                        <label for="institution">Chuyên ngành: </label>
+                        <input type="text" id="institution" placeholder="VD: Công Nghê Phần Mềm">
+
+                        <label for="about">Về Tôi</label>
+                        <textarea id="about" placeholder="Giới thiệu về bản thân"></textarea>
+                        <p id="char-remaining">692 ký tự còn lại</p>
+
+                        <button type="button" onclick="saveSettings()">Save</button>
+                    </form>
+					<p id="success-message" style="display:none;">Thông tin đã được lưu thành công!</p>
+                </section>
+            </section>
+            <section id="contact-details" class="tab-content">
+                <h2>Chi Tiết Liên Hệ</h2>
+                <p>Quản lý chi tiết liên hệ của bạn tại đây.</p>
+            </section>
+            <section id="export" class="tab-content">
+                <h2>Xuất</h2>
+                <p>Quản lý tùy chọn xuất của bạn tại đây.</p>
+            </section>
+        </div>
+	<!-- End posts-entry -->
+
+	<!-- Start posts-entry -->
+	
+	<footer class="site-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="widget">
+						<h3 class="mb-4">About</h3>
+						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+					</div> <!-- /.widget -->
+					<div class="widget">
+						<h3>Social</h3>
+						<ul class="list-unstyled social">
+							<li><a href="#"><span class="icon-instagram"></span></a></li>
+							<li><a href="#"><span class="icon-twitter"></span></a></li>
+							<li><a href="#"><span class="icon-facebook"></span></a></li>
+							<li><a href="#"><span class="icon-linkedin"></span></a></li>
+							<li><a href="#"><span class="icon-pinterest"></span></a></li>
+							<li><a href="#"><span class="icon-dribbble"></span></a></li>
+						</ul>
+					</div> <!-- /.widget -->
+				</div> <!-- /.col-lg-4 -->
+				<div class="col-lg-8 ps-lg-5">
+					<div class="widget" style="margin-left: 450px;">
+						<h3 class="mb-4">Company</h3>
+						<ul class="list-unstyled float-start links">
+							<li><a href="#">About us</a></li>
+							<li><a href="#">Services</a></li>
+							<li><a href="#">Vision</a></li>
+							<li><a href="#">Mission</a></li>
+							<li><a href="#">Terms</a></li>
+							<li><a href="#">Privacy</a></li>
+						</ul>
+						<ul class="list-unstyled float-start links">
+							<li><a href="#">Partners</a></li>
+							<li><a href="#">Business</a></li>
+							<li><a href="#">Careers</a></li>
+							<li><a href="#">Blog</a></li>
+							<li><a href="#">FAQ</a></li>
+							<li><a href="#">Creative</a></li>
+						</ul>
+					</div> <!-- /.widget -->
+				</div> <!-- /.col-lg-4 -->
+				
+
+			<div class="row mt-5">
+				<div class="col-12 text-center">
+            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed by nhom 3
+          </div>
+        </div>
+      </div> 
+    </footer> 
+
+    <!-- Preloader -->
+    <div id="overlayer"></div>
+    <div class="loader">
+    	<div class="spinner-border text-primary" role="status">
+    		<span class="visually-hidden">Loading...</span>
+    	</div>
+    </div>
+
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/tiny-slider.js"></script>
+
+    <script src="js/flatpickr.min.js"></script>
+
+    <script src="js/Account Settings.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/glightbox.min.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/counter.js"></script>
+    <script src="js/custom.js"></script>
+	<script src="js/navbar2.js"></script>
+    
+  </body>
+  </html>
