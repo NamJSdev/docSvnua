@@ -41,13 +41,13 @@
                             class="mtext">Cấu Hình Web</span>
                     </a>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown {{ request()->is('tai-khoan-he-thong') ? 'show' : '' }}">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon bi bi-person-check-fill"></span><span class="mtext">Quản Lý Tài Khoản</span>
                     </a>
                     <ul class="submenu">
                         <li><a href="ui-buttons.html">Tài Khoản Người Dùng</a></li>
-                        <li><a href="ui-cards.html">Tài Khoản Hệ Thống</a></li>
+                        <li><a class="{{ request()->is('tai-khoan-he-thong') ? 'active' : '' }}" href="{{route('taikhoanhethong')}}">Tài Khoản Hệ Thống</a></li>
                     </ul>
                 </li>
             </ul>

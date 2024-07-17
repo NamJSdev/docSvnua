@@ -4,19 +4,19 @@
         <div
             class="search-toggle-icon bi bi-search"
             data-toggle="header_search"></div>
-        <div class="header-search">
+        {{-- <div class="header-search">
             <form>
                 <div class="form-group mb-0">
                     <i class="dw dw-search2 search-icon"></i>
                     <input
                         type="text"
                         class="form-control search-input"
-                        placeholder="Search Here" />
+                        placeholder="Tìm Kiếm..." />
                     <div class="dropdown">
                     </div>
                 </div>
             </form>
-        </div>
+        </div> --}}
     </div>
     <div class="header-right">
         <div class="user-notification">
@@ -67,22 +67,17 @@
                     <span class="user-icon">
                         <img src="{{asset('admin/vendors/images/photo1.jpg')}}" alt />
                     </span>
-                    <span class="user-name">NamJS Dev</span>
+                    <span class="user-name">{{ Auth::user()->info->name }}</span>
                 </a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
                 <div
                     class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                    <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i>
-                        Profile</a>
-                    {{-- <a class="dropdown-item" href="profile.html"><i
-                            class="dw dw-settings2"></i> Setting</a> --}}
-                    <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i>
-                        Log Out</a>
+                    <button class="dropdown-item" type="submit"><i class="dw dw-logout"></i>
+                        Đăng Xuất</button>
                 </div>
+                </form>
             </div>
         </div>
-        <!-- <div class="github-link">
-            <a href="https://github.com/dropways/deskapp" target="_blank"><img
-                    src="vendors/images/github.svg" alt /></a>
-        </div> -->
     </div>
 </div>
