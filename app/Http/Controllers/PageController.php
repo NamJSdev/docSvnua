@@ -10,4 +10,8 @@ class PageController extends Controller
     {
         return view("admin.pages.index");
     }
+    public function home()
+    {
+        return view("client.pages.index");
+    }
 }

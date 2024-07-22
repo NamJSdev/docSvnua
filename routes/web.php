@@ -27,3 +27,9 @@ Route::post('/sua-tai-khoan-he-thong', [AccountController::class, 'updateAccount
 // Route cho việc xóa tài khoản hệ thống
 Route::post('/xoa-tai-khoan-admin', [AccountController::class, 'deleteAccountAdmin'])->name('delete-account-admin')->middleware('admin');
 //Client Routes
+Route::get('/', [PageController::class, 'home'])->name('home-page');
+Route::get('/login-user', [AuthController::class, 'showLoginFormUser'])->name('login-user.form')->middleware('guest');
+Route::post('/login-user', [AuthController::class, 'loginUser'])->name('login-user')->middleware('guest');
+Route::post('/register', [AuthController::class, 'register'])->name('register')->middleware('guest');
+Route::post('/register', [AuthController::class, 'registerForm'])->name('register.form')->middleware('guest');
+Route::post('/logout-user', [AuthController::class, 'logoutUser'])->name('logout-user')->middleware('auth');
