@@ -1,6 +1,6 @@
 @extends('client.layouts.app-detail')
 
-@section('title', '')
+@section('title', 'Profile')
 
 @section('content')
     <style>
@@ -412,7 +412,11 @@
                     <ul>
                         <li onclick="tabs(0)" class="user-post active" style="width: 20em">Bài Đăng</li>
                         @if ($account->id == Auth::user()->id)
-                            <li onclick="tabs(1)" class="user-review">Chờ duyệt</li>
+                            <li onclick="tabs(1)" class="user-review">Chờ duyệt 
+                                @if ($countPendingPost > 0)
+                                    (<i><span><b>{{$countPendingPost}}+</b></span></i>)
+                                @endif
+                            </li>
                             <li onclick="tabs(2)" class="user-reject">Từ Chối</li>
                             <li onclick="tabs(3)" class="user-setting">Yêu Thích</li>
                         @endif

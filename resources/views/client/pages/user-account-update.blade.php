@@ -17,8 +17,6 @@
                 <section class="profile-picture">
                     <div class="profile-pic-container">
                         @if ($user->info->image)
-                            {{-- <img src="{{ asset('storage/' . $data->image) }}" class="img-fluid rounded avatar-50 mr-3"
-                                alt="image" /> --}}
                             <img id="profile-pic" class="img-fluid rounded avatar-50 mr-3" src="{{ asset('storage/' . $user->info->image) }}" alt="Ảnh Đại Diện">
                         @else
                             <img id="profile-pic" src="https://via.placeholder.com/96" alt="Ảnh Đại Diện">

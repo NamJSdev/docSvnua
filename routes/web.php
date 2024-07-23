@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OutPageController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -16,11 +17,13 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 
 //Lấy list tài khoản quản trị hệ thống
 Route::get('/tai-khoan-he-thong', [AccountController::class, 'getAdminAccount'])->name('taikhoanhethong')->middleware('admin');
+Route::get('/tai-khoan-nguoi-dung', [AccountController::class, 'getUserAccount'])->name('taikhoannguoidung')->middleware('admin');
 // Route cho việc tạo tài khoản hệ thống
 Route::get('/tao-tai-khoan-he-thong', [AccountController::class, 'createAccountForm'])->name('create-account-form')->middleware('admin');
 Route::post('/tao-tai-khoan', [AccountController::class, 'createAccount'])->name('create-account')->middleware('admin');
 // Route cho việc cập nhật thông tin tài khoản hệ thống
 Route::post('/sua-tai-khoan-he-thong', [AccountController::class, 'updateAccountAdmin'])->name('update-account-admin')->middleware('admin');
+Route::post('/sua-tai-khoan-nguoi-dung', [AccountController::class, 'updateAccountUser'])->name('update-account-user')->middleware('admin');
 // Route cho việc cập nhật thông tin tài khoản nhân viên // Route cho việc tạo tài khoản hệ thống
 Route::get('/tao-tai-khoan-he-thong', [AccountController::class, 'createAccountForm'])->name('create-account-form')->middleware('admin');
 Route::post('/tao-tai-khoan', [AccountController::class, 'createAccount'])->name('create-account')->middleware('admin');
@@ -28,6 +31,7 @@ Route::post('/tao-tai-khoan', [AccountController::class, 'createAccount'])->name
 Route::post('/sua-tai-khoan-he-thong', [AccountController::class, 'updateAccountAdmin'])->name('update-account-admin')->middleware('admin');
 // Route cho việc xóa tài khoản hệ thống
 Route::post('/xoa-tai-khoan-admin', [AccountController::class, 'deleteAccountAdmin'])->name('delete-account-admin')->middleware('admin');
+Route::post('/xoa-tai-khoan-user', [AccountController::class, 'deleteAccountUser'])->name('delete-account-user')->middleware('admin');
 
 Route::get('/danh-muc/form-khoi-tao', [CategoryController::class, 'create'])->name('categories.create')->middleware('admin');
 Route::get('/danh-muc/danh-sach-danh-muc', [CategoryController::class, 'index'])->name('categories.index')->middleware('auth');
@@ -61,3 +65,5 @@ Route::get('/search', [PostController::class, 'search'])->name('search');
 Route::get('/account-edit', [AccountController::class, 'accountEditForm'])->name('account-edit.form')->middleware('user');
 Route::get('/account-user/{accountID}', [AccountController::class, 'accountUser'])->name('account-user')->middleware('user');
 Route::post('/account-update', [AccountController::class, 'accountUserUpdate'])->name('account-edit.update')->middleware('user');
+
+Route::get('/khong-co-quyen-truy-cap', [OutPageController::class, 'index'])->name('404');
