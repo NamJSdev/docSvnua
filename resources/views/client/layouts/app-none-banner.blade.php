@@ -35,7 +35,6 @@
 <body>
     @include('client.layouts.header')
     @include('client.layouts.wrapper')
-    @include('client.layouts.banner')
     @yield('content')
     @include('client.layouts.footer')
     <script src="{{asset('client/js/bootstrap.bundle.min.js')}}"></script>

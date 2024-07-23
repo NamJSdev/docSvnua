@@ -24,13 +24,13 @@
                         <span class="micon bi bi-table"></span><span class="mtext">Quản Lý Bài Đăng</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="basic-table.html">Duyệt Bài</a></li>
-                        <li><a href="basic-table.html">Bài Đăng</a></li>
-                        <li><a href="datatable.html">Danh mục</a></li>
+                        <li><a class="{{ request()->is('post-pending') ? 'active' : '' }}" href="{{route('posts.active')}}">Duyệt Bài</a></li>
+                        <li><a class="{{ request()->is('post-admin') ? 'active' : '' }}" href="{{route('posts.index')}}">Bài Đăng</a></li>
+                        <li><a class="{{ request()->is('danh-muc/danh-sach-danh-muc') ? 'active' : '' }}" href="{{route('categories.index')}}">Danh mục</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="{{route('admin-dashboard')}}" class="dropdown-toggle no-arrow">
+                    <a href="{{route('posts.doc')}}" class="dropdown-toggle no-arrow {{ request()->is('post-doc') ? 'active' : '' }}">
                         <span class="micon bi bi-file-earmark-text"></span><span
                             class="mtext">Quản Lý Tài Liệu</span>
                     </a>

@@ -28,14 +28,11 @@
     <link rel="stylesheet" href="{{asset('client/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('client/css/flatpickr.min.css')}}">
 
-
     <title>@yield('title')</title>
 </head>
 
 <body>
     @include('client.layouts.header')
-    @include('client.layouts.wrapper')
-    @include('client.layouts.banner')
     @yield('content')
     @include('client.layouts.footer')
     <script src="{{asset('client/js/bootstrap.bundle.min.js')}}"></script>

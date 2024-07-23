@@ -9,7 +9,7 @@ class Info extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'image', 'desc', 'RoleID'];
+    protected $fillable = ['name', 'image', 'desc', 'RoleID','role'];
 
     public function accounts()
     {

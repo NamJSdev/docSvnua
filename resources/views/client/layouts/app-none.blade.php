@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="{{asset('client/css/aos.css')}}">
     <link rel="stylesheet" href="{{asset('client/css/glightbox.min.css')}}">
     <link rel="stylesheet" href="{{asset('client/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('client/css/upload.css')}}">
+
     <link rel="stylesheet" href="{{asset('client/css/flatpickr.min.css')}}">
 
 
@@ -34,8 +36,6 @@
 
 <body>
     @include('client.layouts.header')
-    @include('client.layouts.wrapper')
-    @include('client.layouts.banner')
     @yield('content')
     @include('client.layouts.footer')
     <script src="{{asset('client/js/bootstrap.bundle.min.js')}}"></script>

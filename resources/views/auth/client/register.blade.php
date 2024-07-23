@@ -34,10 +34,11 @@
                         <div class="login-title">
                             <h2 class="text-center text-primary">Đăng Ký Tài Khoản</h2>
                         </div>
-                        <form method="POST" action="{{ route('login') }}">
+                        <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="input-group custom">
-                                <input type="email" name="email" class="form-control form-control-lg" placeholder="Email" />
+                                <input type="email" name="email" class="form-control form-control-lg"
+                                    placeholder="Email" required/>
                                 <div class="input-group-append custom">
                                     <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
                                 </div>
@@ -46,7 +47,8 @@
                                 @enderror
                             </div>
                             <div class="input-group custom">
-                                <input type="password" name="password" class="form-control form-control-lg" placeholder="Mật Khẩu" />
+                                <input type="password" name="password" class="form-control form-control-lg"
+                                    placeholder="Mật Khẩu" required/>
                                 <div class="input-group-append custom">
                                     <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
                                 </div>
@@ -54,11 +56,32 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <div class="input-group custom">
+                                <input type="password" name="password_confirmation" class="form-control form-control-lg"
+                                    placeholder="Xác Nhận Mật Khẩu" required/>
+                                <div class="input-group-append custom">
+                                    <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
+                                </div>
+                                @error('password_confirmation')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            
+                            <div class="input-group custom">
+                                <input type="text" name="name" class="form-control form-control-lg"
+                                    placeholder="Nhập Tên" required/>
+                            </div>
+                            <div class="input-group custom">
+                                <select name="role" class="custom-select col-12">
+                                    <option selected="">Bạn Là...</option>
+                                    <option value="Sinh Viên">Sinh Viên</option>
+                                    <option value="Giảng Viên">Giảng Viên</option>
+                                </select>
+                            </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="input-group mb-0">
-                                        <button class="btn btn-primary btn-lg btn-block" type="submit">Đăng
-                                            Nhập</button>
+                                        <button class="btn btn-primary btn-lg btn-block" type="submit">Tạo Tài Khoản</button>
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +95,7 @@
                                         </ul>
                                     </div>
                                 @endif
-                               </p>
+                            </p>
                         </form>
                     </div>
                 </div>

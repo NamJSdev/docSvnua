@@ -37,7 +37,8 @@
                         <form method="POST" action="">
                             @csrf
                             <div class="input-group custom">
-                                <input type="email" name="email" class="form-control form-control-lg" placeholder="Email" />
+                                <input type="email" name="email" class="form-control form-control-lg"
+                                    placeholder="Email" />
                                 <div class="input-group-append custom">
                                     <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
                                 </div>
@@ -46,7 +47,8 @@
                                 @enderror
                             </div>
                             <div class="input-group custom">
-                                <input type="password" name="password" class="form-control form-control-lg" placeholder="Mật Khẩu" />
+                                <input type="password" name="password" class="form-control form-control-lg"
+                                    placeholder="Mật Khẩu" />
                                 <div class="input-group-append custom">
                                     <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
                                 </div>
@@ -60,6 +62,13 @@
                                         <button class="btn btn-primary btn-lg btn-block" type="submit">Đăng
                                             Nhập</button>
                                     </div>
+                                    <div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">
+                                        OR
+                                    </div>
+                                    <div class="input-group mb-0">
+                                        <a class="btn btn-outline-primary btn-lg btn-block"
+                                            href="{{route('register')}}">Tạo Mới Tài khoản</a>
+                                    </div>
                                 </div>
                             </div>
                             <p class="mt-3">
@@ -72,7 +81,7 @@
                                         </ul>
                                     </div>
                                 @endif
-                               </p>
+                            </p>
                         </form>
                     </div>
                 </div>

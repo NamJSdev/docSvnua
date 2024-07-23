@@ -4279,3 +4279,10 @@ body.IE .register-page-wrap .container {
         display: none;
     }
 }
+
+.truncated-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; /* Thay đổi giá trị này để tùy chỉnh độ dài */
+}

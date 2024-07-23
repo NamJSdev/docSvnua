@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\Info;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -31,26 +32,26 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
-        
+
 
         $user = Account::where('email', $request->email)->first();
-    
+
         if (!$user) {
             throw ValidationException::withMessages([
                 'email' => 'Email không tồn tại!',
             ]);
         }
-        
+
         if (!Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'password' => 'Mật khẩu không đúng!',
             ]);
         }
-    
+
         Auth::login($user);
         // Lưu thông báo vào session
         Session::flash('success', 'Đăng nhập thành công!');
-    
+
         return redirect()->route('admin-dashboard');
     }
     public function loginUser(Request $request)
@@ -59,29 +60,29 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
-        
+
 
         $user = Account::where('email', $request->email)->first();
-    
+
         if (!$user) {
             throw ValidationException::withMessages([
                 'email' => 'Email không tồn tại!',
             ]);
         }
-        
+
         if (!Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'password' => 'Mật khẩu không đúng!',
             ]);
         }
-    
+
         Auth::login($user);
         // Lưu thông báo vào session
         Session::flash('success', 'Đăng nhập thành công!');
-    
+
         return redirect()->route('home-page');
     }
-    
+
     public function logout(Request $request)
     {
         Auth::logout();
@@ -100,18 +101,23 @@ class AuthController extends Controller
     }
     public function register(Request $request)
     {
-        // Validate the incoming request
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:accounts,email',
-            'password' => 'required|min:6',
-            'desc' => 'nullable|string',
+        // Xác thực dữ liệu
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|min:8|confirmed', // `confirmed` để kiểm tra xác nhận mật khẩu
+            'name' => 'required|string|max:255',
+            'role' => 'required|string',
         ]);
 
+        // Nếu xác thực không thành công
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
         // Create a new record in the 'infos' table
         $info = Info::create([
             'name' => $request->input('name'),
-            'desc' => $request->input('desc'),
+            'role' => $request->input('role'),
         ]);
 
         // Create a new record in the 'accounts' table
