@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $datas = Category::orderBy('created_at', 'desc')->paginate(10);
+        $datas = Category::withCount('posts')->orderBy('created_at', 'desc')->paginate(10);
         return view('admin.pages.category', compact('datas'));
     }
+
     public function create()
     {
         return view('admin.pages.add-category');
@@ -73,8 +75,27 @@ class CategoryController extends Controller
             'id' => 'required|integer',
         ]);
 
-        Category::destroy($request->id);
+        $category = Category::findOrFail($request->id);
 
-        return redirect()->route('categories.index')->with('success', 'Danh mục đã được xóa thành công.');
+        // Lấy tất cả các bài viết liên quan đến danh mục này
+        $posts = $category->posts;
+
+        foreach ($posts as $post) {
+            // Xóa tài liệu liên quan nếu có
+            if ($post->doc) {
+                $docPath = 'storage/' . $post->doc->docLink;
+                if (Storage::exists($docPath)) {
+                    Storage::delete($docPath);
+                }
+                $post->doc->delete();
+            }
+            // Xóa bài viết
+            $post->delete();
+        }
+
+        // Xóa danh mục
+        $category->delete();
+
+        return redirect()->route('categories.index')->with('success', 'Danh mục và các bài viết liên quan đã được xóa thành công.');
     }
 }

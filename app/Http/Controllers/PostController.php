@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Doc;
 use App\Models\PostCategory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -148,6 +149,73 @@ class PostController extends Controller
         // Trả về phản hồi sau khi xóa
         return redirect()->route('posts.index')->with('success', 'Tài Liệu Đã Được Xóa Thành Công.');
     }
+    public function deletePostUser(Request $request)
+    {
+        // Tìm bài viết theo ID
+        $post = Post::findOrFail($request->id);
+
+        $doc = Doc::findOrFail($post->docID);
+        // Xóa tài liệu liên quan nếu tồn tại
+        if ($doc) {
+            // Xóa file tài liệu khỏi storage
+            Storage::disk('public')->delete($doc->docLink);
+
+            // Xóa tài liệu khỏi database
+            $doc->delete();
+        }
+
+        // Xóa bài viết
+        $post->delete();
+
+        // Lấy ID của người dùng hiện tại
+        $userId = Auth::id();
+
+        // Trả về phản hồi sau khi cập nhật
+        return redirect()->route('account-user', ['accountID' => $userId])->with('success', 'Bài Viết Đã Được Xóa Thành Công.');
+    }
+    public function updatePostUser(Request $request)
+    {
+        // Xác thực dữ liệu từ yêu cầu
+        $request->validate([
+            'id' => 'required|integer',
+            'name' => 'required|string|max:255',
+            'desc' => 'nullable|string|max:255',
+            'doc' => 'nullable|file|mimes:pdf|max:10000', // Chỉ cho phép file PDF với kích thước tối đa 10MB
+        ]);
+
+        // Tìm bài viết dựa trên ID
+        $post = Post::findOrFail($request->id);
+
+        // Cập nhật thông tin bài viết
+        $post->name = $request->name;
+        $post->desc = $request->desc;
+
+        // Xử lý tài liệu mới nếu có
+        if ($request->hasFile('doc')) {
+            // Lưu tài liệu mới vào bảng docs
+            $docPath = $request->file('doc')->store('docs', 'public');
+
+            // Tạo hoặc cập nhật bản ghi tài liệu trong bảng docs
+            $doc = Doc::updateOrCreate(
+                ['id' => $post->docID], // Cập nhật tài liệu liên kết với bài viết nếu có
+                ['docLink' => $docPath]
+            );
+
+            // Cập nhật ID tài liệu vào bài viết
+            $post->docID = $doc->id;
+        }
+
+        // Lưu thay đổi vào cơ sở dữ liệu
+        $post->save();
+
+        // Lấy ID của người dùng hiện tại
+        $userId = Auth::id();
+
+        // Trả về phản hồi sau khi cập nhật
+        return redirect()->route('account-user', ['accountID' => $userId])->with('success', 'Bài Viết Đã Được Cập Nhật Thành Công.');
+    }
+
+
 
     public function postForCategory($categoryID)
     {

@@ -18,6 +18,7 @@
                             <th>Tên</th>
                             <th>Icon</th>
                             <th>Mô Tả</th>
+                            <th>Số Bài Viết</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -32,6 +33,7 @@
                                 <td>{{ $data->name }}</td>
                                 <td><i class="{{ $data->icon }}"></i></td>
                                 <td>{{ $data->desc }}</td>
+                                <td>{{ $data->posts_count }}</td>
                                 <td>
                                     <div class="dropdown">
                                         <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"

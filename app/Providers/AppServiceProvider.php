@@ -31,5 +31,14 @@ class AppServiceProvider extends ServiceProvider
                 ->limit(8)
                 ->get());
         });
+        // Đăng ký biến toàn cục cho tất cả các view
+        view()->composer('*', function ($view) {
+            $view->with('countPendingPost', $this->countPendingPost());
+        });
+    }
+    public function countPendingPost()
+    {
+        // Đếm số lượng các bài viết chưa được duyệt
+        return Post::where('Status', 'pending')->count();
     }
 }

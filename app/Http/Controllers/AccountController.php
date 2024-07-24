@@ -15,6 +15,11 @@ class AccountController extends Controller
         $datas = Account::where('roleID', 1)->get();
         return view('admin.pages.admin-account', compact('datas'));
     }
+    public function getUserAccount()
+    {
+        $datas = Account::where('roleID', 2)->get();
+        return view('admin.pages.user-account', compact('datas'));
+    }
     public function createAccountForm()
     {
         return view('admin.pages.add-account');
@@ -83,6 +88,42 @@ class AccountController extends Controller
 
         return redirect()->route('taikhoanhethong')->with('success', 'Tài khoản đã được cập nhật thành công.');
     }
+    public function updateAccountUser(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer',
+            'user_name' => 'required|string|max:255',
+            'desc' => 'string|max:255',
+            'email' => 'required|string|max:255|email',
+            'password' => 'nullable|string|min:6',
+        ]);
+
+        // Find the account by ID
+        $account = Account::find($request->id);
+
+        if (!$account) {
+            return redirect()->back()->with('error', 'Account not found.');
+        }
+
+        // Update the account details
+        $account->email = $request->email;
+        if ($request->password != "") {
+            $account->password = bcrypt($request->password);
+        }
+        $account->save();
+
+        // Update the info details
+        $info = Info::find($account->infoID);
+        if ($info) {
+            $info->name = $request->user_name;
+            $info->desc = $request->desc;
+            $info->save();
+        } else {
+            return redirect()->back()->with('error', 'Associated info not found.');
+        }
+
+        return redirect()->route('taikhoannguoidung')->with('success', 'Tài khoản đã được cập nhật thành công.');
+    }
     public function deleteAccountAdmin(Request $request)
     {
         $request->validate([
@@ -92,6 +133,16 @@ class AccountController extends Controller
         Account::destroy($request->id);
 
         return redirect()->route('taikhoanhethong')->with('success', 'Tài khoản đã được xóa thành công.');
+    }
+    public function deleteAccountUser(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer',
+        ]);
+
+        Account::destroy($request->id);
+
+        return redirect()->route('taikhoannguoidung')->with('success', 'Tài khoản đã được xóa thành công.');
     }
     public function accountEditForm()
     {
