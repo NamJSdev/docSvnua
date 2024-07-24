@@ -412,9 +412,9 @@
                     <ul>
                         <li onclick="tabs(0)" class="user-post active" style="width: 20em">Bài Đăng</li>
                         @if ($account->id == Auth::user()->id)
-                            <li onclick="tabs(1)" class="user-review">Chờ duyệt 
+                            <li onclick="tabs(1)" class="user-review">Chờ duyệt
                                 @if ($countPendingPost > 0)
-                                    (<i><span><b>{{$countPendingPost}}+</b></span></i>)
+                                    (<i><span><b>{{ $countPendingPost }}+</b></span></i>)
                                 @endif
                             </li>
                             <li onclick="tabs(2)" class="user-reject">Từ Chối</li>
@@ -439,8 +439,109 @@
                                                 class="date">{{ \Carbon\Carbon::parse($data->created_at)->format('d-m-Y') }}</span>
                                             <p><a href="{{ route('post-detail', ['postID' => $data->id]) }}"
                                                     class="text-limit">{{ $data->name }}</a></p>
-                                            <div class="view">
-                                                <p>{{ $data->view }}&nbsp;<i class="fa-regular fa-eye"></i></p>
+                                            <div class="view d-flex">
+                                                <p class="mb-0 d-flex align-items-center">{{ $data->view }}&nbsp;<i
+                                                        class="fa-regular fa-eye"></i></p>
+                                                @if ($account->id == Auth::user()->id)
+                                                    <a class="dropdown-item edit" href="#" title="Edit"
+                                                        data-toggle="modal" data-target="#editModal"
+                                                        data-id="{{ $data->id }}" data-name="{{ $data->name }}"
+                                                        data-category="{{ $data->categoryID }}"
+                                                        data-desc="{{ $data->desc }}">
+                                                        <i class="fa fa-pencil"></i> Edit
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="#" title="Delete"
+                                                        data-toggle="modal" data-target="#deleteModal"
+                                                        data-id="{{ $data->id }}">
+                                                        <i class="fa fa-trash"></i> Delete
+                                                    </a>
+                                                    <!-- Edit Modal HTML -->
+                                                    <div id="editModal" class="modal fade" tabindex="-1" role="dialog"
+                                                        aria-labelledby="editModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <form id="editForm"
+                                                                    action="{{ route('posts-user.update') }}"
+                                                                    method="POST" enctype="multipart/form-data">
+                                                                    @csrf
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="editModalLabel">Chỉnh
+                                                                            Sửa
+                                                                            Bài Đăng</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="form-group">
+                                                                            <label for="editName">Tên</label>
+                                                                            <input type="hidden" name="id"
+                                                                                value="{{ $data->id }}">
+                                                                            <input type="text" id="editName"
+                                                                                class="form-control" name="name"
+                                                                                value="{{ $data->name }}" required>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="editName">Tài Liệu</label>
+                                                                            <input type="file" class="form-control"
+                                                                                name="doc"
+                                                                                accept=".ppt,.pptx,.ppsx,.potx,.pdf,.doc,.docx">
+                                                                        </div>
+                                                                        <div class="form-group">
+
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="editDesc">Mô Tả</label>
+                                                                            <textarea id="editDesc" class="form-control" name="desc">{{ $data->desc }}</textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Hủy</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Lưu</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Delete Modal HTML -->
+                                                    <div id="deleteModal" class="modal fade" tabindex="-1"
+                                                        role="dialog" aria-labelledby="deleteModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <form id="deleteForm"
+                                                                    action="{{ route('posts-user.delete') }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    <!-- Ensure to use DELETE method for deletion -->
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="deleteModalLabel">Xóa
+                                                                            Bài
+                                                                            Viết</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <p>Bạn có chắc chắn muốn xóa bài đăng này không?</p>
+                                                                        <input type="hidden" name="id"
+                                                                            value="{{ $data->id }}" id="delete-id">
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Hủy</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger">Xóa</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -483,7 +584,8 @@
 
                                         @for ($i = $startPage; $i <= $endPage; $i++)
                                             <li class="page-item {{ $datas->currentPage() == $i ? 'active' : '' }}">
-                                                <a class="page-link" href="{{ $datas->url($i) }}">{{ $i }}</a>
+                                                <a class="page-link"
+                                                    href="{{ $datas->url($i) }}">{{ $i }}</a>
                                             </li>
                                         @endfor
 
@@ -535,7 +637,103 @@
                                                 <p><a href="{{ route('post-detail', ['postID' => $data->id]) }}"
                                                         class="text-limit">{{ $data->name }}</a></p>
                                                 <div class="view">
-                                                    <p>{{ $data->view }}&nbsp;<i class="fa-regular fa-eye"></i></p>
+                                                    <a class="dropdown-item edit" href="#" title="Edit"
+                                                        data-toggle="modal" data-target="#editModal2"
+                                                        data-id="{{ $data->id }}" data-name="{{ $data->name }}"
+                                                        data-category="{{ $data->categoryID }}"
+                                                        data-desc="{{ $data->desc }}">
+                                                        <i class="fa fa-pencil"></i> Edit
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="#" title="Delete"
+                                                        data-toggle="modal" data-target="#deleteModal2"
+                                                        data-id="{{ $data->id }}">
+                                                        <i class="fa fa-trash"></i> Delete
+                                                    </a>
+                                                    <!-- Edit Modal HTML -->
+                                                    <div id="editModal2" class="modal fade" tabindex="-1"
+                                                        role="dialog" aria-labelledby="editModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <form id="editForm"
+                                                                    action="{{ route('posts-user.update') }}"
+                                                                    method="POST" enctype="multipart/form-data">
+                                                                    @csrf
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="editModalLabel">Chỉnh
+                                                                            Sửa Bài Đăng</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="form-group">
+                                                                            <label for="editName">Tên</label>
+                                                                            <input type="hidden" name="id"
+                                                                                value="{{ $data->id }}">
+                                                                            <input type="text" id="editName"
+                                                                                class="form-control" name="name"
+                                                                                value="{{ $data->name }}" required>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="editName">Tài Liệu</label>
+                                                                            <input type="file" class="form-control"
+                                                                                name="doc"
+                                                                                accept=".ppt,.pptx,.ppsx,.potx,.pdf,.doc,.docx">
+                                                                        </div>
+                                                                        <div class="form-group">
+
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="editDesc">Mô Tả</label>
+                                                                            <textarea id="editDesc" class="form-control" name="desc">{{ $data->desc }}</textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Hủy</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Lưu</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Delete Modal HTML -->
+                                                    <div id="deleteModal2" class="modal fade" tabindex="-1"
+                                                        role="dialog" aria-labelledby="deleteModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <form id="deleteForm"
+                                                                    action="{{ route('posts-user.delete') }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    <!-- Ensure to use DELETE method for deletion -->
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="deleteModalLabel">Xóa
+                                                                            Bài Viết</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <p>Bạn có chắc chắn muốn xóa bài đăng này không?</p>
+                                                                        <input type="hidden" name="id"
+                                                                            value="{{ $data->id }}" id="delete-id">
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Hủy</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger">Xóa</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -564,7 +762,103 @@
                                                 <p><a href="{{ route('post-detail', ['postID' => $data->id]) }}"
                                                         class="text-limit">{{ $data->name }}</a></p>
                                                 <div class="view">
-                                                    <p>{{ $data->view }}&nbsp;<i class="fa-regular fa-eye"></i></p>
+                                                    <a class="dropdown-item edit" href="#" title="Edit"
+                                                        data-toggle="modal" data-target="#editModal3"
+                                                        data-id="{{ $data->id }}" data-name="{{ $data->name }}"
+                                                        data-category="{{ $data->categoryID }}"
+                                                        data-desc="{{ $data->desc }}">
+                                                        <i class="fa fa-pencil"></i> Edit
+                                                    </a>
+                                                    <a class="dropdown-item delete" href="#" title="Delete"
+                                                        data-toggle="modal" data-target="#deleteModal3"
+                                                        data-id="{{ $data->id }}">
+                                                        <i class="fa fa-trash"></i> Delete
+                                                    </a>
+                                                    <!-- Edit Modal HTML -->
+                                                    <div id="editModal3" class="modal fade" tabindex="-1"
+                                                        role="dialog" aria-labelledby="editModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <form id="editForm"
+                                                                    action="{{ route('posts-user.update') }}"
+                                                                    method="POST" enctype="multipart/form-data">
+                                                                    @csrf
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="editModalLabel">Chỉnh
+                                                                            Sửa Bài Đăng</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="form-group">
+                                                                            <label for="editName">Tên</label>
+                                                                            <input type="hidden" name="id"
+                                                                                value="{{ $data->id }}">
+                                                                            <input type="text" id="editName"
+                                                                                class="form-control" name="name"
+                                                                                value="{{ $data->name }}" required>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="editName">Tài Liệu</label>
+                                                                            <input type="file" class="form-control"
+                                                                                name="doc"
+                                                                                accept=".ppt,.pptx,.ppsx,.potx,.pdf,.doc,.docx">
+                                                                        </div>
+                                                                        <div class="form-group">
+
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="editDesc">Mô Tả</label>
+                                                                            <textarea id="editDesc" class="form-control" name="desc">{{ $data->desc }}</textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Hủy</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Lưu</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Delete Modal HTML -->
+                                                    <div id="deleteModal3" class="modal fade" tabindex="-1"
+                                                        role="dialog" aria-labelledby="deleteModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <form id="deleteForm"
+                                                                    action="{{ route('posts-user.delete') }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    <!-- Ensure to use DELETE method for deletion -->
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="deleteModalLabel">Xóa
+                                                                            Bài Viết</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <p>Bạn có chắc chắn muốn xóa bài đăng này không?</p>
+                                                                        <input type="hidden" name="id"
+                                                                            value="{{ $data->id }}" id="delete-id">
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Hủy</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger">Xóa</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -586,7 +880,10 @@
             </div>
         </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(".nav ul li").click(function() {
             $(this)

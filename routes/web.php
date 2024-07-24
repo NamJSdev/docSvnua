@@ -46,6 +46,9 @@ Route::post('/post-approved', [PostController::class, 'approved'])->name('posts.
 Route::post('/post-rejected', [PostController::class, 'rejected'])->name('posts.rejected')->middleware('admin');
 Route::post('/post-delete', [PostController::class, 'delete'])->name('posts.delete')->middleware('admin');
 
+Route::post('/post-update-user', [PostController::class, 'updatePostUser'])->name('posts-user.update')->middleware('user');
+Route::post('/post-delete-user', [PostController::class, 'deletePostUser'])->name('posts-user.delete')->middleware('user');
+
 //Client Routes
 Route::get('/', [PageController::class, 'home'])->name('home-page');
 Route::get('/login-user', [AuthController::class, 'showLoginFormUser'])->name('login-user.form');
